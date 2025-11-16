@@ -233,7 +233,8 @@ func main() {
 		go collector.RescanForDevices()
 	}
 
-	reg := prometheus.NewPedanticRegistry()
+	// https://github.com/prometheus-community/smartctl_exporter/issues/305
+	reg := prometheus.NewRegistry()
 	reg.MustRegister(versioncollector.NewCollector("smartctl_exporter"))
 	reg.MustRegister(
 		collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}),
